@@ -35,12 +35,12 @@ public class Producto {
     private BigDecimal precio;
 
     @ManyToOne
-    @JoinColumn (name = "categoriasFK", nullable = false )
+    @JoinColumn (name = "categoriaFK", nullable = false )
     private Categoria categoriaFK;
 
 
     @ManyToOne
-    @JoinColumn (name = "ivasFK", nullable = false )
+    @JoinColumn (name = "ivaFK", nullable = false )
     private Iva ivaFK;
 
     @ManyToMany
