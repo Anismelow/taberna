@@ -45,7 +45,7 @@ public class Producto {
 
     @ManyToMany
 @JoinTable(
-    name = "producto_alergenos",
+    name = "productos_alergenos",
     joinColumns = @JoinColumn(name = "productoFK"),
     inverseJoinColumns = @JoinColumn(name = "alergenoFK")
 )
