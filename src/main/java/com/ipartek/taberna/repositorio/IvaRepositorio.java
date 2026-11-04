@@ -13,14 +13,14 @@ import jakarta.transaction.Transactional;
 @Repository 
 public interface IvaRepositorio extends JpaRepository <Iva, Integer> {
 
-       @Modifying
+   @Modifying
     @Transactional
-    @Query(value = "insert into ivas (id, porcentaje) values (:id, :valor)", nativeQuery = true)
+    @Query(value = "insert into ivas (id, porcentaje) values (:id, :porcentaje)", nativeQuery = true)
     public void insertarConId(@Param("id") Integer id, @Param("valor") Integer valor);
 
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE ivas AUTO_INCREMENT = 1", nativeQuery = true)
+    @Query(value = "ALTER TABLE categorias AUTO_INCREMENT = 1", nativeQuery = true)
     public void resetearAutoInc();
 
 }

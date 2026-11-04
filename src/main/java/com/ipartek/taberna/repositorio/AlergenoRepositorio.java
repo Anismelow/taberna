@@ -14,12 +14,12 @@ import jakarta.transaction.Transactional;
 public interface AlergenoRepositorio extends  JpaRepository <Alergeno, Integer>{
     @Modifying
     @Transactional 
-    @Query(value = "insert into Alergenos (id, nombre) values (:id, :valor)", nativeQuery = true)
+    @Query(value = "insert into alergenos (id, nombre) values (:id, :nombre)", nativeQuery = true)
     public void insertarConId(@Param("id") Integer id, @Param("valor") Integer valor);
 
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE ivas AUTO_INCREMENT = 1", nativeQuery = true)
+    @Query(value = "ALTER TABLE alergenos AUTO_INCREMENT = 1", nativeQuery = true)
     public void resetearAutoInc();
 
 }

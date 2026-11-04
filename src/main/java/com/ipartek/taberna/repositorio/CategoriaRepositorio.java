@@ -15,12 +15,12 @@ public interface CategoriaRepositorio extends JpaRepository<Categoria, Integer> 
 
     @Modifying
     @Transactional
-    @Query(value = "insert into categorias (id, nombre) values (:id, :valor)", nativeQuery = true)
+    @Query(value = "insert into categorias (id, nombre) values (:id, :nombre)", nativeQuery = true)
     public void insertarConId(@Param("id") Integer id, @Param("valor") Integer valor);
 
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE ivas AUTO_INCREMENT = 1", nativeQuery = true)
+    @Query(value = "ALTER TABLE categorias AUTO_INCREMENT = 1", nativeQuery = true)
     public void resetearAutoInc();
 
 }

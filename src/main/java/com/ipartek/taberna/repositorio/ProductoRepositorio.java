@@ -13,13 +13,4 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ProductoRepositorio extends JpaRepository<Producto, Integer> {
 
-    @Modifying
-    @Transactional
-    @Query(value = "insert into productos (id, nombre,precio,categoriaFK, ivaFK, foto) values (:id, :valor)", nativeQuery = true)
-    public void insertarConId(@Param("id") Integer id, @Param("valor") Integer valor);
-
-    @Modifying
-    @Transactional
-    @Query(value = "ALTER TABLE ivas AUTO_INCREMENT = 1", nativeQuery = true)
-    public void resetearAutoInc();
 }
