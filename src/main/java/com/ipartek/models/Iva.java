@@ -23,7 +23,7 @@ public class Iva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "porcentaje", nullable = false,unique = true)
+    @Column(name = "porcentajes", nullable = false,unique = true)
      @Min(0)
      @Max (21)
     private Integer  procentaje;

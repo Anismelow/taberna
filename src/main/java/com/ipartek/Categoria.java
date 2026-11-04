@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ivas")
+@Table(name = "Categorias")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "categorias", length = 50, nullable = false, unique = true)
+    @Column(name = "nombres", length = 50, nullable = false, unique = true)
     private String nombre;
 
 }
