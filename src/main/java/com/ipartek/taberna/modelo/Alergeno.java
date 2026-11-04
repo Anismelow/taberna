@@ -1,4 +1,4 @@
-package com.ipartek.modelo;
+package com.ipartek.taberna.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

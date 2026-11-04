@@ -1,4 +1,4 @@
-package com.ipartek.modelo;
+package com.ipartek.taberna.modelo;
 
 import java.math.BigDecimal;
 import java.util.List;

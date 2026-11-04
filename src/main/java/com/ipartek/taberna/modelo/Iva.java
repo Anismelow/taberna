@@ -1,4 +1,4 @@
-package com.ipartek.modelo;
+package com.ipartek.taberna.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +16,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categorias")
-public class Categoria {
+@Table(name = "ivas")
+public class Iva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombres", length = 50, nullable = false, unique = true)
-    private String nombre;
+    @Column(name = "porcentajes", nullable = false,unique = true)
+     @Min(0)
+     @Max (21)
+    private Integer  porcentaje;
 
 }
