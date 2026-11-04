@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ipartek.taberna.modelo.Alergeno;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository 
 public interface AlergenoRepositorio extends  JpaRepository <Alergeno, Integer>{
