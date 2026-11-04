@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.taberna.modelo.Alergeno;
 
-public interface AlergenoRepositorio {
+public interface AlergenoServicio {
 
     public List<Alergeno> obtenerTodos();
     public Alergeno obtenerPorId(Integer id);
