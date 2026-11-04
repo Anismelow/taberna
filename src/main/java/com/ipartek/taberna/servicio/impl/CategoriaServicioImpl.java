@@ -3,11 +3,14 @@ package com.ipartek.taberna.servicio.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ipartek.taberna.repositorio.CategoriaRepositorio;
 import com.ipartek.taberna.servicio.CategoriaServicio;
 import com.ipartek.taberna.modelo.Categoria;
 
+
+@Service 
 public class CategoriaServicioImpl implements CategoriaServicio {
 
     @Autowired
@@ -104,5 +107,15 @@ public class CategoriaServicioImpl implements CategoriaServicio {
             e.printStackTrace();
         }
     }
+
+    @Override
+	public Boolean comprobarSiExiste(Integer id) {
+		try {
+			return categoriaRepo.existsById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

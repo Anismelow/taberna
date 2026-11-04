@@ -3,11 +3,13 @@ package com.ipartek.taberna.servicio.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ipartek.taberna.modelo.Iva;
 import com.ipartek.taberna.repositorio.IvaRepositorio;
 import com.ipartek.taberna.servicio.IvaServicio;
 
+@Service 
 public class IvaServicioImpl implements IvaServicio {
 
     @Autowired

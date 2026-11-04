@@ -3,11 +3,13 @@ package com.ipartek.taberna.servicio.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ipartek.taberna.modelo.Alergeno;
 import com.ipartek.taberna.repositorio.AlergenoRepositorio;
 import com.ipartek.taberna.servicio.AlergenoServicio;
 
+@Service 
 public class AlergenoServicioImpl implements  AlergenoServicio{
 
     @Autowired 

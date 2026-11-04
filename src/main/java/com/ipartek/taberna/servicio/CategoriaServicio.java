@@ -11,6 +11,7 @@ public interface CategoriaServicio {
     public Categoria modificar(Categoria categoria);
     public Boolean borrar(Integer id);
 
+    public Boolean comprobarSiExiste(Integer id);
     public Integer contarRegistros();
     public void resetearAutoIncrement();
     public void insertarConId(Categoria categoria);
