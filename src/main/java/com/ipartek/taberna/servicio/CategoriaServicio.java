@@ -13,5 +13,5 @@ public interface CategoriaServicio {
 
     public Integer contarRegistros();
     public void resetearAutoIncrement();
-    public void insertarConId();
+    public void insertarConId(Categoria categoria);
 }

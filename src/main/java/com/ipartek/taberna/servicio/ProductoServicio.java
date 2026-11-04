@@ -6,7 +6,7 @@ import com.ipartek.taberna.modelo.Producto;
 
 public interface ProductoServicio {
 
-    public List<Producto> obtenerTOdos();
+    public List<Producto> obtenerTodos();
     public Producto obtenerPorId(Integer id);
     public Producto insertar(Producto producto);
     public Producto modificar(Producto producto);
