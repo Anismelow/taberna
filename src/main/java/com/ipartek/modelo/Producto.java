@@ -1,4 +1,4 @@
-package com.ipartek.models;
+package com.ipartek.modelo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombres", length = 145, nullable = false)
+    @Column(name = "nombre", length = 145, nullable = false)
     private String nombre;
 
     @Column(name = "precio", precision = 5, scale = 2, nullable = false)
