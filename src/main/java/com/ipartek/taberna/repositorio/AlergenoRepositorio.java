@@ -15,7 +15,7 @@ public interface AlergenoRepositorio extends  JpaRepository <Alergeno, Integer>{
     @Modifying
     @Transactional 
     @Query(value = "insert into alergenos (id, nombre) values (:id, :nombre)", nativeQuery = true)
-    public void insertarConId(@Param("id") Integer id, @Param("valor") Integer valor);
+    public void insertarConId(@Param("id") Integer id, @Param("nombre") String nombre);
 
     @Modifying
     @Transactional
