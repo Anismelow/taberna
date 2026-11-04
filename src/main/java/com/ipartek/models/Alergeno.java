@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Categorias")
-public class Alergenos {
+@Table(name = "alergenos")
+public class Alergeno {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
