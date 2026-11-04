@@ -45,9 +45,9 @@ public class Producto {
 
     @ManyToMany
 @JoinTable(
-    name = "categoria_alergenos",
-    joinColumns = @JoinColumn(name = "categori_id"),
-    inverseJoinColumns = @JoinColumn(name = "alergeno_id")
+    name = "producto_alergenos",
+    joinColumns = @JoinColumn(name = "productoFK"),
+    inverseJoinColumns = @JoinColumn(name = "alergenoFK")
 )
 private List<Alergeno> listaAlergenos;
 
