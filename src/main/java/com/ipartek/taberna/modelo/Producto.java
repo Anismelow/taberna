@@ -43,6 +43,9 @@ public class Producto {
     @JoinColumn (name = "ivaFK", nullable = false )
     private Iva ivaFK;
 
+    @Column (name = "foto", length = 255, nullable = true)
+    private String foto;
+
     @ManyToMany
 @JoinTable(
     name = "productos_alergenos",
