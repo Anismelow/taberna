@@ -45,6 +45,7 @@ public class ProductoServicioImpl implements ProductoServicio{
                 return null;
             }
         }catch(Exception e){
+            e.printStackTrace();
             return null;
         }
     }
