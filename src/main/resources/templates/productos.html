@@ -18,6 +18,9 @@
 		<div th:if="${f_mensaje}" class="mensaje">
 			<span th:text="${f_mensaje}"></span>
 		</div>
+		
+
+				<!-- ===== Insertar ===== -->
 
 		<form method="post" th:action="@{/insertarProducto}" th:object="${objProducto}" enctype="multipart/form-data">
 
@@ -39,7 +42,7 @@
 			</select>
 
 			<label>Imagen</label>
-			<input type="file" name="imagenProducto" >
+			<input type="file" name="imagenProducto">
 
 
 			<label>Alérgenos</label>
@@ -51,6 +54,28 @@
 			</div>
 
 			<input type="submit" value="Agregar">
+		</form>
+		<!-- ===== Buscador ===== -->
+		<form method="get" th:action="@{/buscarProductos}" class="buscador">
+
+			<label>Nombre</label>
+			<input type="text" name="nombre" th:value="${param.nombre}" placeholder="Buscar por nombre...">
+
+			<label>Categoría</label>
+			<select name="categoriaId">
+				<option value="">-- Todas --</option>
+				<option th:each="cat : ${listaCategorias}" th:value="${cat.id}" th:text="${cat.nombre}"
+					th:selected="${param.categoriaId != null and param.categoriaId[0] == cat.id.toString()}"></option>
+			</select>
+
+			<label>Precio mínimo</label>
+			<input type="number" name="precioMin" th:value="${param.precioMin}" min="0" step="0.01" placeholder="0">
+
+			<label>Precio máximo</label>
+			<input type="number" name="precioMax" th:value="${param.precioMax}" min="0" step="0.01" placeholder="999">
+
+			<input type="submit" value="Buscar">
+			<a th:href="@{/menuProductos}">Limpiar</a>
 		</form>
 		<table>
 			<thead>
@@ -68,8 +93,8 @@
 			<tbody>
 				<tr th:each="producto : ${listaProductos}">
 					<td>
-		<img th:src="@{'/image/' + ${producto.foto}}" width="60">
-	</td>
+						<img th:src="@{'/image/' + ${producto.foto}}" width="60">
+					</td>
 					<td th:text="${producto.id}">1</td>
 					<td th:text="${producto.nombre}">Bocadillo</td>
 					<td th:text="${producto.precio} + ' €'">3.50 €</td>

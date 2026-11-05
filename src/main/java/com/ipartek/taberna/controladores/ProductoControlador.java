@@ -84,9 +84,9 @@ public class ProductoControlador {
 	}
 
 	@GetMapping("/modificarProducto")
-	public String modificarProducto(Model model, RedirectAttributes redirect,  Integer id ) {
+	public String modificarProducto(Model model, RedirectAttributes redirect, Integer id) {
 		try {
-			
+
 			if (Boolean.TRUE.equals(productoServ.comprobarSiExiste(id))) {
 				model.addAttribute("objProducto", productoServ.obtenerPorId(id));
 				model.addAttribute("listaCategorias", categoriaServ.obtenerTodos());
@@ -104,22 +104,24 @@ public class ProductoControlador {
 	}
 
 	@PostMapping("/modificarProducto")
-	public String modificarProducto(RedirectAttributes redirect,@RequestParam(name = "imagenFoto", required = false) MultipartFile archivoFoto, @ModelAttribute Producto objProducto) {
+	public String modificarProducto(RedirectAttributes redirect,
+			@RequestParam(name = "imagenFoto", required = false) MultipartFile archivoFoto,
+			@ModelAttribute Producto objProducto) {
 		try {
 			if (archivoFoto != null && !archivoFoto.isEmpty()) {
-			// SÍ hay foto nueva: la guardo y pongo su nombre
-			String nombreOriginal = archivoFoto.getOriginalFilename();
-			String nombreFinal = System.currentTimeMillis() + "_" + nombreOriginal;
-			objProducto.setFoto(nombreFinal);
+				// SÍ hay foto nueva: la guardo y pongo su nombre
+				String nombreOriginal = archivoFoto.getOriginalFilename();
+				String nombreFinal = System.currentTimeMillis() + "_" + nombreOriginal;
+				objProducto.setFoto(nombreFinal);
 
-			Path carpeta = Paths.get("uploads/image");
-			Files.createDirectories(carpeta);
-			Files.write(carpeta.resolve(nombreFinal), archivoFoto.getBytes());
-		} else {
-			// NO hay foto nueva: recupero la que ya tenía en la BD
-			Producto productoViejo = productoServ.obtenerPorId(objProducto.getId());
-			objProducto.setFoto(productoViejo.getFoto());
-		}
+				Path carpeta = Paths.get("uploads/image");
+				Files.createDirectories(carpeta);
+				Files.write(carpeta.resolve(nombreFinal), archivoFoto.getBytes());
+			} else {
+				// NO hay foto nueva: recupero la que ya tenía en la BD
+				Producto productoViejo = productoServ.obtenerPorId(objProducto.getId());
+				objProducto.setFoto(productoViejo.getFoto());
+			}
 
 			Producto resultado = productoServ.modificar(objProducto);
 			if (resultado != null && resultado.getId() != null) {
@@ -133,4 +135,20 @@ public class ProductoControlador {
 		return "redirect:/menuProductos";
 	}
 
+	@GetMapping("/buscarProductos")
+	public String buscarProducto(
+			Model model,
+			@RequestParam(name = "nombre", required = false) String nombre,
+			@RequestParam(name = "categoriaId", required = false) Integer categoriaId,
+			@RequestParam(name = "precioMin", required = false) Double precioMin,
+			@RequestParam(name = "precioMax", required = false) Double precioMax) {
+
+		model.addAttribute("listaProductos", productoServ.buscar(nombre, categoriaId, precioMin, precioMax));
+		model.addAttribute("listaCategorias", categoriaServ.obtenerTodos());
+		model.addAttribute("listaIvas", ivaServ.obtenerTodos());
+		model.addAttribute("listaAlergenos", alergenoServ.obtenerTodos());
+		model.addAttribute("objProducto", new Producto());
+
+		return "productos";
+	}
 }

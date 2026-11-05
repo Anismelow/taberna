@@ -99,6 +99,15 @@ public class ProductoServicioImpl implements ProductoServicio{
 		}
 	}
 
+	  @Override 
+    public List<Producto> buscar(String nombre, Integer categoriaId, Double precioMin, Double precioMax){
+        try{
+            return productoRepo.buscar(nombre, categoriaId,precioMin, precioMax );
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }
