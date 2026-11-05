@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>TPV</title>
+	<link rel="stylesheet" th:href="@{/styles/styles.css}">
+</head>
+<body>
+
+	<header th:replace="~{includes/plantilla :: cabecera}"></header>
+	<nav th:replace="~{includes/plantilla :: menu}"></nav>
+
+	<main>
+	<div class="en-obras">
+		<span class="icono">🚚</span>
+		<p>Sección en obras</p>
+	</div>
+</main>
+
+	<footer th:replace="~{includes/plantilla :: pie}"></footer>
+
+</body>
+</html>
