@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:fragment="cabecera">
+		<h1>La Taberna</h1>
+	</header>
+
+	<nav th:fragment="menu">
+		<ul>
+			<li><a th:href="@{/menuProductos}">Gestión productos</a></li>
+			<li><a th:href="@{/menuTpv}">TPV</a></li>
+			<li><a th:href="@{/menuHistorico}">Histórico de ventas</a></li>
+			<li><a th:href="@{/menuCopia}">Copia de seguridad</a></li>
+		</ul>
+	</nav>
+
+	<footer th:fragment="pie">
+		<p>La Taberna — 2026</p>
+	</footer>
+
+</body>
+</html>
