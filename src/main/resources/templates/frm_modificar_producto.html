@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Modificar producto</title>
 	<link rel="stylesheet" th:href="@{/styles/styles.css}">
 </head>
+
 <body>
 
 	<header th:replace="~{includes/plantilla :: cabecera}"></header>
@@ -13,7 +15,7 @@
 	<main>
 		<h2>Modificar producto</h2>
 
-		<form method="post" th:action="@{/modificarProducto}" th:object="${objProducto}">
+		<form method="post" th:action="@{/modificarProducto}" th:object="${objProducto}" enctype="multipart/form-data">
 
 			<!-- 1. el id, oculto pero necesario -->
 			<input type="hidden" th:field="*{id}">
@@ -26,16 +28,12 @@
 
 			<label>Categoría</label>
 			<select th:field="*{categoriaFK.id}">
-				<option th:each="cat : ${listaCategorias}"
-						th:value="${cat.id}"
-						th:text="${cat.nombre}"></option>
+				<option th:each="cat : ${listaCategorias}" th:value="${cat.id}" th:text="${cat.nombre}"></option>
 			</select>
 
 			<label>IVA</label>
 			<select th:field="*{ivaFK.id}">
-				<option th:each="iva : ${listaIvas}"
-						th:value="${iva.id}"
-						th:text="${iva.porcentaje} + ' %'"></option>
+				<option th:each="iva : ${listaIvas}" th:value="${iva.id}" th:text="${iva.porcentaje} + ' %'"></option>
 			</select>
 
 			<!-- 2. checkboxes con th:field: se marcan solos los que ya tiene -->
@@ -45,13 +43,21 @@
 					<input type="checkbox" th:field="*{listaAlergenos}" th:value="${ale.id}">
 					<span th:text="${ale.nombre}"></span>
 				</label>
-			</div>
+				<label>Imagen</label>
+				<!-- muestro la foto actual si la tiene -->
+				<div th:if="${objProducto.foto != null}">
+					<img th:src="@{'/image/' + ${objProducto.foto}}" width="100">
+					<p th:text="${objProducto.foto}">nombre.jpg</p>
+				</div>
 
-			<input type="submit" value="Guardar cambios">
+				<input type="file" name="imagenFoto">
+
+				<input type="submit" value="Guardar cambios">
 		</form>
 	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 
 </body>
+
 </html>

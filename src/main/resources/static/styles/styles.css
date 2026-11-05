@@ -218,3 +218,32 @@ footer {
 	border-top: 1px solid #e5e5e5;
 	margin-top: 3rem;
 }
+
+/* ===== Imágenes de producto ===== */
+
+/* Foto en la tabla: miniatura cuadrada */
+td img {
+	width: 55px;
+	height: 55px;
+	object-fit: cover;
+	border-radius: 6px;
+	border: 1px solid #e5e5e5;
+	display: block;
+}
+
+/* Foto actual en el formulario de modificar */
+form img {
+	max-width: 120px;
+	height: auto;
+	border-radius: 6px;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 0.5rem;
+}
+
+/* Nombre del archivo bajo la foto actual */
+form img + p {
+	font-size: 0.8rem;
+	color: #888;
+	margin-bottom: 1rem;
+	word-break: break-all;
+}

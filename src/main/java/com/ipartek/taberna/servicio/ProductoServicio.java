@@ -2,6 +2,8 @@ package com.ipartek.taberna.servicio;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ipartek.taberna.modelo.Producto;
 
 public interface ProductoServicio {
