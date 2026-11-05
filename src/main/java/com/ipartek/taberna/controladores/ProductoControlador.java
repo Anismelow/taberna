@@ -2,8 +2,10 @@ package com.ipartek.taberna.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ipartek.taberna.modelo.Producto;
@@ -13,10 +15,10 @@ import com.ipartek.taberna.servicio.ProductoServicio;
 @Controller
 public class ProductoControlador {
 
-    @Autowired 
-    private ProductoServicio productoServ;
+	@Autowired
+	private ProductoServicio productoServ;
 
-    @PostMapping("/insertarProducto")
+	@PostMapping("/insertarProducto")
 	public String insertarProducto(RedirectAttributes redirect, @ModelAttribute Producto objProducto) {
 		try {
 			Producto resultado = productoServ.insertar(objProducto);
@@ -31,5 +33,19 @@ public class ProductoControlador {
 		return "redirect:/menuProductos";
 	}
 
+	@GetMapping("/borrarProducto")
+	public String borrarProducto(RedirectAttributes redirect, @RequestParam Integer id) {
+		try {
+			Boolean resultado = productoServ.borrar(id);
+			if (Boolean.TRUE.equals(resultado)) {
+				redirect.addFlashAttribute("f_mensaje", "Producto borrado correctamente");
+			} else {
+				redirect.addFlashAttribute("f_mensaje", "No se pudo borrar el producto");
+			}
+		} catch (Exception e) {
+			redirect.addFlashAttribute("f_mensaje", "Error");
+		}
+		return "redirect:/menuProductos";
+	}
 
 }
