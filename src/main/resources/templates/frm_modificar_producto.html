@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Modificar producto</title>
+	<link rel="stylesheet" th:href="@{/styles/styles.css}">
+</head>
+<body>
+
+	<header th:replace="~{includes/plantilla :: cabecera}"></header>
+	<nav th:replace="~{includes/plantilla :: menu}"></nav>
+
+	<main>
+		<h2>Modificar producto</h2>
+
+		<form method="post" th:action="@{/modificarProducto}" th:object="${objProducto}">
+
+			<!-- 1. el id, oculto pero necesario -->
+			<input type="hidden" th:field="*{id}">
+
+			<label>Nombre</label>
+			<input type="text" th:field="*{nombre}" required maxlength="145">
+
+			<label>Precio (sin IVA)</label>
+			<input type="number" th:field="*{precio}" required min="0" max="999.99" step="0.10">
+
+			<label>Categoría</label>
+			<select th:field="*{categoriaFK.id}">
+				<option th:each="cat : ${listaCategorias}"
+						th:value="${cat.id}"
+						th:text="${cat.nombre}"></option>
+			</select>
+
+			<label>IVA</label>
+			<select th:field="*{ivaFK.id}">
+				<option th:each="iva : ${listaIvas}"
+						th:value="${iva.id}"
+						th:text="${iva.porcentaje} + ' %'"></option>
+			</select>
+
+			<!-- 2. checkboxes con th:field: se marcan solos los que ya tiene -->
+			<label>Alérgenos</label>
+			<div class="checkbox-grupo">
+				<label th:each="ale : ${listaAlergenos}">
+					<input type="checkbox" th:field="*{listaAlergenos}" th:value="${ale.id}">
+					<span th:text="${ale.nombre}"></span>
+				</label>
+			</div>
+
+			<input type="submit" value="Guardar cambios">
+		</form>
+	</main>
+
+	<footer th:replace="~{includes/plantilla :: pie}"></footer>
+
+</body>
+</html>

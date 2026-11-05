@@ -25,7 +25,7 @@
 			<input type="text" th:field="*{nombre}" required maxlength="145">
 
 			<label>Precio (sin IVA)</label>
-			<input type="number" th:field="*{precio}" required min="0" max="999.99" step="0.01">
+			<input type="number" th:field="*{precio}" required min="0" max="999.99" step="0.10">
 
 			<label>Categoría</label>
 			<select th:field="*{categoriaFK.id}">
