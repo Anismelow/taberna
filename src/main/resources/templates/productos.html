@@ -12,7 +12,33 @@
 
 	<main>
 		<h2>Gestión de productos</h2>
-		<!-- aquí irán el formulario y la tabla en las próximas fases -->
+		<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Precio sin IVA</th>
+			<th>% IVA</th>
+			<th>Precio con IVA</th>
+			<th>Categoría</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="producto : ${listaProductos}">
+			<td th:text="${producto.id}">1</td>
+			<td th:text="${producto.nombre}">Bocadillo</td>
+			<td th:text="${producto.precio} + ' €'">3.50 €</td>
+			<td th:text="${producto.ivaFK.porcentaje} + ' %'">10 %</td>
+			<td th:text="${producto.precioConIva} + ' €'">3.85 €</td>
+			<td th:text="${producto.categoriaFK.nombre}">Bocadillos</td>
+			<td>
+				<a th:href="@{/borrarProducto(id=${producto.id})}">Borrar</a>
+				<a th:href="@{/modificarProducto(id=${producto.id})}">Modificar</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
 	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>

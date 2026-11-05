@@ -55,4 +55,13 @@ public class Producto {
 private List<Alergeno> listaAlergenos;
 
 
+	public BigDecimal getPrecioConIva() {
+		if (precio == null || ivaFK == null) {
+			return precio;
+		}
+		BigDecimal factor = BigDecimal.valueOf(100 + ivaFK.getPorcentaje())
+				.divide(BigDecimal.valueOf(100));
+		return precio.multiply(factor).setScale(2, java.math.RoundingMode.HALF_UP);
+	}
+
 }
