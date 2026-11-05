@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Gestión de productos</title>
 	<link rel="stylesheet" th:href="@{/styles/styles.css}">
 </head>
+
 <body>
 
 	<header th:replace="~{includes/plantilla :: cabecera}"></header>
@@ -12,36 +14,70 @@
 
 	<main>
 		<h2>Gestión de productos</h2>
+		<!-- mensaje flash -->
+		<div th:if="${f_mensaje}" class="mensaje">
+			<span th:text="${f_mensaje}"></span>
+		</div>
+
+		<form method="post" th:action="@{/insertarProducto}" th:object="${objProducto}">
+
+			<label>Nombre</label>
+			<input type="text" th:field="*{nombre}" required maxlength="145">
+
+			<label>Precio (sin IVA)</label>
+			<input type="number" th:field="*{precio}" required min="0" max="999.99" step="0.01">
+
+			<label>Categoría</label>
+			<select th:field="*{categoriaFK.id}">
+				<option th:each="cat : ${listaCategorias}" th:value="${cat.id}" th:text="${cat.nombre}"></option>
+			</select>
+
+			<label>IVA</label>
+			<select th:field="*{ivaFK.id}">
+				<option th:each="iva : ${listaIvas}" th:value="${iva.id}" th:text="${iva.porcentaje} + ' %'"></option>
+			</select>
+
+			<label>Alérgenos</label>
+			<div class="checkbox-grupo">
+				<label th:each="ale : ${listaAlergenos}">
+					<input type="checkbox" name="listaAlergenos" th:value="${ale.id}">
+					<span th:text="${ale.nombre}"></span>
+				</label>
+			</div>
+
+			<input type="submit" value="Agregar">
+		</form>
 		<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Precio sin IVA</th>
-			<th>% IVA</th>
-			<th>Precio con IVA</th>
-			<th>Categoría</th>
-			<th>Opciones</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="producto : ${listaProductos}">
-			<td th:text="${producto.id}">1</td>
-			<td th:text="${producto.nombre}">Bocadillo</td>
-			<td th:text="${producto.precio} + ' €'">3.50 €</td>
-			<td th:text="${producto.ivaFK.porcentaje} + ' %'">10 %</td>
-			<td th:text="${producto.precioConIva} + ' €'">3.85 €</td>
-			<td th:text="${producto.categoriaFK.nombre}">Bocadillos</td>
-			<td>
-				<a th:href="@{/borrarProducto(id=${producto.id})}">Borrar</a>
-				<a th:href="@{/modificarProducto(id=${producto.id})}">Modificar</a>
-			</td>
-		</tr>
-	</tbody>
-</table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Precio sin IVA</th>
+					<th>% IVA</th>
+					<th>Precio con IVA</th>
+					<th>Categoría</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${listaProductos}">
+					<td th:text="${producto.id}">1</td>
+					<td th:text="${producto.nombre}">Bocadillo</td>
+					<td th:text="${producto.precio} + ' €'">3.50 €</td>
+					<td th:text="${producto.ivaFK.porcentaje} + ' %'">10 %</td>
+					<td th:text="${producto.precioConIva} + ' €'">3.85 €</td>
+					<td th:text="${producto.categoriaFK.nombre}">Bocadillos</td>
+					<td>
+						<a th:href="@{/borrarProducto(id=${producto.id})}">Borrar</a>
+						<a th:href="@{/modificarProducto(id=${producto.id})}">Modificar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 
 </body>
+
 </html>
