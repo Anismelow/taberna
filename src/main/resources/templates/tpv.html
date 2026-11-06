@@ -10,12 +10,66 @@
 	<header th:replace="~{includes/plantilla :: cabecera}"></header>
 	<nav th:replace="~{includes/plantilla :: menu}"></nav>
 
-	<main>
-	<div class="en-obras">
-		<span class="icono">🚚</span>
-		<p>Sección en obras</p>
-	</div>
-</main>
+	<main class="tpv-main">
+		<h2>TPV — Punto de venta</h2>
+
+		<div class="tpv-layout">
+
+						<!-- ===== COLUMNA IZQUIERDA: el ticket ===== -->
+			<section class="tpv-ticket">
+				<h3>Ticket</h3>
+
+				<!-- si el carrito está vacío -->
+				<p class="ticket-vacio" th:if="${carrito.isEmpty()}">
+					El ticket está vacío. Añade productos desde la derecha.
+				</p>
+
+				<!-- si tiene líneas, las pintamos -->
+				<div th:unless="${carrito.isEmpty()}">
+
+					<div class="ticket-linea" th:each="linea : ${carrito}">
+						<span class="linea-cant" th:text="${linea.cantidad}">1</span>
+						<span class="linea-nombre" th:text="${linea.productoFK.nombre}">Producto</span>
+						<span class="linea-subtotal"
+							  th:text="${#numbers.formatDecimal(linea.productoFK.precioConIva * linea.cantidad, 1, 2)} + ' €'">0.00 €</span>
+					</div>
+
+				</div>
+			</section>
+
+			<!-- ===== COLUMNA DERECHA: los productos ===== -->
+			<section class="tpv-productos">
+
+				<!-- un bloque por cada categoría -->
+				<div th:each="categoria : ${listaCategorias}" class="categoria-bloque">
+					<h3 th:text="${categoria.nombre}">Categoría</h3>
+
+					<div class="productos-grid">
+
+						<!-- solo los productos de esta categoría -->
+						<div th:each="producto : ${listaProductos}"
+							 th:if="${producto.categoriaFK.id == categoria.id}"
+							 class="producto-card">
+
+							<img th:src="@{'/image/' + ${producto.foto}}" alt="foto">
+							<p class="producto-nombre" th:text="${producto.nombre}">Producto</p>
+							<p class="producto-precio" th:text="${producto.precioConIva} + ' €'">0.00 €</p>
+
+							<!-- formulario para añadir al ticket (funcionará en la siguiente capa) -->
+							<form method="post" th:action="@{/tpvAnadir}">
+								<input type="hidden" name="productoId" th:value="${producto.id}">
+								<input type="number" name="cantidad" value="1" min="1">
+								<button type="submit">Añadir</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+
+			</section>
+
+		</div>
+	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 

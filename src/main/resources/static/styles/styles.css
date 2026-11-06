@@ -273,3 +273,135 @@ form img + p {
 	text-decoration: none;
 	font-size: 0.9rem;
 }
+/* ===== TPV ===== */
+.tpv-main {
+	max-width: 1200px;
+}
+
+.tpv-layout {
+	display: flex;
+	gap: 1.5rem;
+	align-items: flex-start;
+}
+
+/* Columna izquierda: ticket (fija, se queda a la vista al hacer scroll) */
+.tpv-ticket {
+	flex: 0 0 320px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 8px;
+	padding: 1.25rem;
+	position: sticky;
+	top: 1rem;
+}
+
+.tpv-ticket h3 {
+	margin-bottom: 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid #1a1a1a;
+}
+
+.ticket-vacio {
+	color: #999;
+	font-size: 0.9rem;
+	text-align: center;
+	padding: 2rem 0;
+}
+
+/* Columna derecha: productos */
+.tpv-productos {
+	flex: 1;
+}
+
+.categoria-bloque {
+	margin-bottom: 1.5rem;
+}
+
+.categoria-bloque h3 {
+	font-size: 1rem;
+	color: #444;
+	margin-bottom: 0.75rem;
+}
+
+.productos-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 1rem;
+}
+
+/* Tarjeta de producto */
+.producto-card {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 8px;
+	padding: 0.75rem;
+	text-align: center;
+}
+
+.producto-card img {
+	width: 100%;
+	height: 90px;
+	object-fit: cover;
+	border-radius: 6px;
+	margin-bottom: 0.5rem;
+}
+
+.producto-nombre {
+	font-size: 0.85rem;
+	font-weight: 500;
+	margin-bottom: 0.25rem;
+}
+
+.producto-precio {
+	font-size: 0.9rem;
+	color: #1a1a1a;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+
+/* El form dentro de la tarjeta: sin borde ni fondo de "formulario" */
+.producto-card form {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.producto-card input[type="number"] {
+	width: 50px;
+	margin: 0;
+	padding: 0.35rem;
+	text-align: center;
+}
+
+.producto-card button {
+	flex: 1;
+	padding: 0.35rem 0.5rem;
+	font-size: 0.85rem;
+}
+
+/* Líneas del ticket */
+.ticket-linea {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid #eee;
+	font-size: 0.9rem;
+}
+
+.linea-cant {
+	font-weight: 600;
+	min-width: 24px;
+}
+
+.linea-nombre {
+	flex: 1;
+}
+
+.linea-subtotal {
+	font-weight: 600;
+}
