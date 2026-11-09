@@ -1,417 +1,183 @@
-/* ===== Base ===== */
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+/* =========================================================
+   LA TABERNA — hoja de estilos
+   Identidad: taberna vasca tradicional (madera, vino, papel)
+   ========================================================= */
+
+:root {
+	--madera:      #1a1512;
+	--madera-2:    #3a2e26;
+	--papel:       #f5f0e6;
+	--papel-2:     #fbf8f1;
+	--borde:       #e2d7c0;
+	--vino:        #8b2e2e;
+	--vino-osc:    #6e2222;
+	--cobre:       #b5651d;
+	--oliva:       #3c5a1e;
+	--oliva-osc:   #2d4516;
+	--tinta:       #2a2320;
+	--tinta-suave: #6b5d52;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-	font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-	color: #1a1a1a;
-	background: #fafafa;
+	font-family: "Inter", system-ui, sans-serif;
+	color: var(--tinta);
+	background: var(--papel);
 	line-height: 1.6;
+	background-image: radial-gradient(circle at 20% 10%, rgba(181,101,29,0.04), transparent 40%);
 }
 
 /* ===== Cabecera ===== */
 header {
-	background: #1a1a1a;
-	color: #fff;
-	padding: 1.5rem 2rem;
+	background: var(--madera);
+	color: var(--papel);
+	padding: 1.75rem 2rem 1.5rem;
 	text-align: center;
+	border-bottom: 4px solid var(--vino);
 }
-
 header h1 {
-	font-weight: 600;
-	letter-spacing: 0.5px;
+	font-family: "Zilla Slab", Georgia, serif;
+	font-weight: 700;
+	font-size: 2.4rem;
+	letter-spacing: 1px;
+	color: var(--papel);
+	display: inline-block;
+}
+header h1::before, header h1::after {
+	content: "\2767";
+	color: var(--cobre);
+	font-size: 1.3rem;
+	vertical-align: middle;
+	margin: 0 0.9rem;
+	opacity: 0.8;
 }
 
 /* ===== Menú ===== */
-nav {
-	background: #fff;
-	border-bottom: 1px solid #e5e5e5;
-}
-
-nav ul {
-	display: flex;
-	list-style: none;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	padding: 0.75rem 1rem;
-}
-
+nav { background: var(--madera-2); border-bottom: 1px solid #000; }
+nav ul { display: flex; list-style: none; justify-content: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
 nav a {
-	display: block;
-	padding: 0.5rem 1rem;
-	color: #444;
-	text-decoration: none;
-	border-radius: 6px;
-	font-size: 0.95rem;
-	transition: background 0.15s, color 0.15s;
+	display: block; padding: 0.85rem 1.5rem; color: #d8c9b4; text-decoration: none;
+	font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px;
+	border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
-
-nav a:hover {
-	background: #1a1a1a;
-	color: #fff;
-}
+nav a:hover { color: var(--papel); background: rgba(0,0,0,0.2); border-bottom-color: var(--cobre); }
 
 /* ===== Contenido ===== */
-main {
-	max-width: 1000px;
-	margin: 2rem auto;
-	padding: 0 1.5rem;
+main { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+.tpv-main { max-width: 1280px; }
+h2 {
+	font-family: "Zilla Slab", Georgia, serif; font-weight: 600; font-size: 1.7rem;
+	color: var(--madera); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--borde);
 }
+h3 { font-family: "Zilla Slab", Georgia, serif; font-weight: 600; color: var(--vino); }
 
-main h2 {
-	font-weight: 600;
-	margin-bottom: 1.5rem;
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid #1a1a1a;
-}
-
-/* ===== Mensajes flash ===== */
-.mensaje {
-	background: #eef6ee;
-	border: 1px solid #cfe3cf;
-	color: #2e5e2e;
-	padding: 0.75rem 1rem;
-	border-radius: 6px;
-	margin-bottom: 1.5rem;
+/* ===== Mensajes ===== */
+.mensaje, .mensaje-flash {
+	background: #eef3e4; border-left: 4px solid var(--oliva); color: var(--oliva-osc);
+	padding: 0.85rem 1rem; border-radius: 4px; margin-bottom: 1.5rem; font-weight: 500;
 }
 
 /* ===== Formularios ===== */
 form {
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	padding: 1.5rem;
-	margin-bottom: 2rem;
+	background: var(--papel-2); border: 1px solid var(--borde); border-radius: 8px;
+	padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 1px 2px rgba(26,21,18,0.04);
 }
-
-label {
-	display: block;
-	font-size: 0.9rem;
-	font-weight: 500;
-	margin-bottom: 0.25rem;
-	color: #444;
+label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--tinta-suave); letter-spacing: 0.2px; }
+input[type="text"], input[type="number"], input[type="date"], input[type="file"], select {
+	width: 100%; padding: 0.55rem 0.8rem; margin-bottom: 1rem; border: 1px solid var(--borde);
+	border-radius: 6px; font-size: 0.95rem; font-family: inherit; background: #fff; color: var(--tinta);
 }
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="file"],
-select {
-	width: 100%;
-	padding: 0.5rem 0.75rem;
-	margin-bottom: 1rem;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	font-size: 0.95rem;
-	font-family: inherit;
-}
-
-input:focus,
-select:focus {
-	outline: none;
-	border-color: #1a1a1a;
-}
-
-/* Checkboxes de alérgenos en línea */
-.checkbox-grupo {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.75rem;
-	margin-bottom: 1rem;
-}
-
+input:focus, select:focus { outline: none; border-color: var(--cobre); box-shadow: 0 0 0 3px rgba(181,101,29,0.12); }
+.checkbox-grupo { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
 .checkbox-grupo label {
-	display: flex;
-	align-items: center;
-	gap: 0.4rem;
-	font-weight: 400;
-	margin: 0;
+	display: flex; align-items: center; gap: 0.4rem; font-weight: 400; margin: 0;
+	padding: 0.35rem 0.7rem; background: #fff; border: 1px solid var(--borde); border-radius: 20px; font-size: 0.85rem; cursor: pointer;
 }
-
-.checkbox-grupo input {
-	width: auto;
-	margin: 0;
-}
+.checkbox-grupo input { width: auto; margin: 0; }
 
 /* ===== Botones ===== */
-button,
-input[type="submit"] {
-	background: #1a1a1a;
-	color: #fff;
-	border: none;
-	padding: 0.6rem 1.25rem;
-	border-radius: 6px;
-	font-size: 0.95rem;
-	cursor: pointer;
-	transition: background 0.15s;
+button, input[type="submit"] {
+	background: var(--vino); color: var(--papel); border: none; padding: 0.6rem 1.3rem;
+	border-radius: 6px; font-size: 0.92rem; font-weight: 600; font-family: inherit; cursor: pointer;
+	letter-spacing: 0.2px; transition: background 0.15s;
 }
-
-button:hover,
-input[type="submit"]:hover {
-	background: #444;
-}
+button:hover, input[type="submit"]:hover { background: var(--vino-osc); }
 
 /* ===== Tabla ===== */
-table {
-	width: 100%;
-	border-collapse: collapse;
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	overflow: hidden;
-}
+table { width: 100%; border-collapse: collapse; background: var(--papel-2); border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; }
+th, td { padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--borde); font-size: 0.9rem; }
+th { background: var(--madera); color: var(--papel); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.4px; }
+tbody tr:nth-child(even) { background: rgba(226,215,192,0.25); }
+tbody tr:hover { background: rgba(181,101,29,0.08); }
+tr:last-child td { border-bottom: none; }
+td a { color: var(--vino); text-decoration: none; margin-right: 0.75rem; font-size: 0.85rem; font-weight: 600; }
+td a:hover { text-decoration: underline; }
+td img { width: 52px; height: 52px; object-fit: cover; border-radius: 6px; border: 1px solid var(--borde); display: block; }
 
-th, td {
-	padding: 0.75rem 1rem;
-	text-align: left;
-	border-bottom: 1px solid #eee;
-	font-size: 0.9rem;
-}
-
-th {
-	background: #f5f5f5;
-	font-weight: 600;
-}
-
-tr:last-child td {
-	border-bottom: none;
-}
-
-tr:hover td {
-	background: #fafafa;
-}
-
-td a {
-	color: #1a1a1a;
-	text-decoration: none;
-	margin-right: 0.75rem;
-	font-size: 0.85rem;
-}
-
-td a:hover {
-	text-decoration: underline;
-}
-
-/* ===== Sección en obras ===== */
-.en-obras {
-	text-align: center;
-	padding: 4rem 1rem;
-	color: #888;
-}
-
-.en-obras .icono {
-	font-size: 4rem;
-	display: block;
-	margin-bottom: 1rem;
-}
-
-/* ===== Pie ===== */
-footer {
-	text-align: center;
-	padding: 1.5rem;
-	color: #999;
-	font-size: 0.85rem;
-	border-top: 1px solid #e5e5e5;
-	margin-top: 3rem;
-}
-
-/* ===== Imágenes de producto ===== */
-
-/* Foto en la tabla: miniatura cuadrada */
-td img {
-	width: 55px;
-	height: 55px;
-	object-fit: cover;
-	border-radius: 6px;
-	border: 1px solid #e5e5e5;
-	display: block;
-}
-
-/* Foto actual en el formulario de modificar */
-form img {
-	max-width: 120px;
-	height: auto;
-	border-radius: 6px;
-	border: 1px solid #e5e5e5;
-	margin-bottom: 0.5rem;
-}
-
-/* Nombre del archivo bajo la foto actual */
-form img + p {
-	font-size: 0.8rem;
-	color: #888;
-	margin-bottom: 1rem;
-	word-break: break-all;
-}
+/* ===== Imágenes en formulario ===== */
+form img { max-width: 120px; height: auto; border-radius: 6px; border: 1px solid var(--borde); margin-bottom: 0.5rem; }
+form img + p { font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 1rem; word-break: break-all; }
 
 /* ===== Buscador ===== */
-.buscador {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: end;
-	gap: 1rem;
-}
+.buscador { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; background: var(--madera); border-color: var(--madera); }
+.buscador label { color: #d8c9b4; margin-bottom: 0.25rem; }
+.buscador input, .buscador select { width: auto; margin-bottom: 0; min-width: 130px; }
+.buscador input[type="submit"] { background: var(--cobre); }
+.buscador input[type="submit"]:hover { background: #96531a; }
+.buscador a { padding: 0.55rem 1rem; color: #d8c9b4; text-decoration: none; font-size: 0.9rem; align-self: center; }
+.buscador a:hover { color: var(--papel); }
 
-.buscador label {
-	display: block;
-	margin-bottom: 0.25rem;
-}
+/* ===== Sección en obras ===== */
+.en-obras { text-align: center; padding: 4rem 1rem; color: var(--tinta-suave); background: var(--papel-2); border: 2px dashed var(--borde); border-radius: 10px; }
+.en-obras .icono { font-size: 4rem; display: block; margin-bottom: 1rem; }
 
-.buscador input,
-.buscador select {
-	width: auto;
-	margin-bottom: 0;
-}
+/* ===== Pie ===== */
+footer { text-align: center; padding: 1.5rem; color: var(--tinta-suave); font-size: 0.82rem; border-top: 1px solid var(--borde); margin-top: 3rem; }
 
-.buscador a {
-	padding: 0.6rem 1rem;
-	color: #666;
-	text-decoration: none;
-	font-size: 0.9rem;
-}
 /* ===== TPV ===== */
-.tpv-main {
-	max-width: 1200px;
-}
-
-.tpv-layout {
-	display: flex;
-	gap: 1.5rem;
-	align-items: flex-start;
-}
-
-/* Columna izquierda: ticket (fija, se queda a la vista al hacer scroll) */
+.tpv-layout { display: flex; gap: 1.5rem; align-items: flex-start; }
 .tpv-ticket {
-	flex: 0 0 320px;
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	padding: 1.25rem;
-	position: sticky;
-	top: 1rem;
+	flex: 0 0 340px; background: var(--papel-2); border: 1px solid var(--borde); border-radius: 8px;
+	padding: 1.25rem; position: sticky; top: 1rem; box-shadow: 0 2px 10px rgba(26,21,18,0.07);
 }
+.tpv-ticket h3 { font-size: 1.2rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px dashed var(--borde); text-align: center; color: var(--madera); letter-spacing: 1px; }
+.ticket-vacio { color: var(--tinta-suave); font-size: 0.88rem; text-align: center; padding: 2.5rem 0; }
+.ticket-linea { display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0; border-bottom: 1px dotted var(--borde); font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+.linea-cant { font-weight: 700; color: var(--vino); min-width: 20px; }
+.linea-nombre { flex: 1; }
+.linea-precio { color: var(--tinta-suave); font-size: 0.8rem; }
+.linea-subtotal { font-weight: 600; color: var(--cobre); }
+.linea-borrar { text-decoration: none; font-size: 0.75rem; margin-left: 0.3rem; opacity: 0.6; }
+.linea-borrar:hover { opacity: 1; }
+.ticket-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem; padding-top: 0.9rem; border-top: 2px solid var(--madera); font-family: "Zilla Slab", serif; }
+.ticket-total span { font-size: 1rem; font-weight: 600; letter-spacing: 1px; }
+.ticket-total strong { font-size: 1.5rem; color: var(--vino); }
+.ticket-botones { display: flex; gap: 0.5rem; margin-top: 1.1rem; }
+.ticket-botones form { flex: 1; background: none; border: none; padding: 0; margin: 0; box-shadow: none; }
+.btn { display: flex; align-items: center; justify-content: center; padding: 0.65rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; }
+.btn-ok, .btn-guardar { width: 100%; background: var(--oliva); color: var(--papel); border: none; }
+.btn-ok:hover, .btn-guardar:hover { background: var(--oliva-osc); }
+.btn-cancelar { flex: 1; background: transparent; color: var(--vino); border: 1px solid var(--vino); }
+.btn-cancelar:hover { background: var(--vino); color: var(--papel); }
+.tpv-productos { flex: 1; }
+.categoria-bloque { margin-bottom: 1.75rem; }
+.categoria-bloque h3 { font-size: 1.05rem; color: var(--madera); margin-bottom: 0.75rem; padding-bottom: 0.35rem; border-bottom: 2px solid var(--cobre); display: inline-block; }
+.productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 1rem; }
+.producto-card { background: var(--papel-2); border: 1px solid var(--borde); border-radius: 8px; padding: 0.75rem; text-align: center; transition: transform 0.12s, box-shadow 0.12s; }
+.producto-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,21,18,0.1); }
+.producto-card img { width: 100%; height: 95px; object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem; border: 1px solid var(--borde); }
+.producto-nombre { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; color: var(--tinta); }
+.producto-precio { font-size: 1rem; color: var(--cobre); font-weight: 700; font-family: "Zilla Slab", serif; margin-bottom: 0.5rem; }
+.producto-card form { background: none; border: none; padding: 0; margin: 0; box-shadow: none; display: flex; gap: 0.4rem; }
+.producto-card input[type="number"] { width: 48px; margin: 0; padding: 0.35rem; text-align: center; }
+.producto-card button { flex: 1; padding: 0.4rem; font-size: 0.82rem; background: var(--madera); }
+.producto-card button:hover { background: var(--vino); }
 
-.tpv-ticket h3 {
-	margin-bottom: 1rem;
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid #1a1a1a;
-}
-
-.ticket-vacio {
-	color: #999;
-	font-size: 0.9rem;
-	text-align: center;
-	padding: 2rem 0;
-}
-
-/* Columna derecha: productos */
-.tpv-productos {
-	flex: 1;
-}
-
-.categoria-bloque {
-	margin-bottom: 1.5rem;
-}
-
-.categoria-bloque h3 {
-	font-size: 1rem;
-	color: #444;
-	margin-bottom: 0.75rem;
-}
-
-.productos-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: 1rem;
-}
-
-/* Tarjeta de producto */
-.producto-card {
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	padding: 0.75rem;
-	text-align: center;
-}
-
-.producto-card img {
-	width: 100%;
-	height: 90px;
-	object-fit: cover;
-	border-radius: 6px;
-	margin-bottom: 0.5rem;
-}
-
-.producto-nombre {
-	font-size: 0.85rem;
-	font-weight: 500;
-	margin-bottom: 0.25rem;
-}
-
-.producto-precio {
-	font-size: 0.9rem;
-	color: #1a1a1a;
-	font-weight: 600;
-	margin-bottom: 0.5rem;
-}
-
-/* El form dentro de la tarjeta: sin borde ni fondo de "formulario" */
-.producto-card form {
-	background: none;
-	border: none;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	gap: 0.4rem;
-	align-items: center;
-}
-
-.producto-card input[type="number"] {
-	width: 50px;
-	margin: 0;
-	padding: 0.35rem;
-	text-align: center;
-}
-
-.producto-card button {
-	flex: 1;
-	padding: 0.35rem 0.5rem;
-	font-size: 0.85rem;
-}
-
-/* Líneas del ticket */
-.ticket-linea {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 0.5rem 0;
-	border-bottom: 1px solid #eee;
-	font-size: 0.9rem;
-}
-
-.linea-cant {
-	font-weight: 600;
-	min-width: 24px;
-}
-
-.linea-nombre {
-	flex: 1;
-}
-
-.linea-subtotal {
-	font-weight: 600;
-}
-/* ===== Mensaje flash ===== */
-.mensaje-flash {
-	margin: 10px 0;
-	padding: 10px 14px;
-	border-radius: 6px;
-	background: #eaf7ee;
-	border: 1px solid #27ae60;
-	color: #1e7e46;
-	font-weight: bold;
+/* ===== Responsive ===== */
+@media (max-width: 760px) {
+	.tpv-layout { flex-direction: column; }
+	.tpv-ticket { flex: 1; width: 100%; position: static; }
+	nav ul { flex-direction: column; }
+	header h1 { font-size: 1.8rem; }
 }

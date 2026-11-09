@@ -4,6 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Modificar producto</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" th:href="@{/styles/styles.css}">
 </head>
 
@@ -17,7 +20,7 @@
 
 		<form method="post" th:action="@{/modificarProducto}" th:object="${objProducto}" enctype="multipart/form-data">
 
-			<!-- 1. el id, oculto pero necesario -->
+			<!-- el id, oculto pero necesario -->
 			<input type="hidden" th:field="*{id}">
 
 			<label>Nombre</label>
@@ -36,23 +39,24 @@
 				<option th:each="iva : ${listaIvas}" th:value="${iva.id}" th:text="${iva.porcentaje} + ' %'"></option>
 			</select>
 
-			<!-- 2. checkboxes con th:field: se marcan solos los que ya tiene -->
+			<!-- checkboxes de alérgenos: se marcan solos los que ya tiene -->
 			<label>Alérgenos</label>
 			<div class="checkbox-grupo">
 				<label th:each="ale : ${listaAlergenos}">
 					<input type="checkbox" th:field="*{listaAlergenos}" th:value="${ale.id}">
 					<span th:text="${ale.nombre}"></span>
 				</label>
-				<label>Imagen</label>
-				<!-- muestro la foto actual si la tiene -->
-				<div th:if="${objProducto.foto != null}">
-					<img th:src="@{'/image/' + ${objProducto.foto}}" width="100">
-					<p th:text="${objProducto.foto}">nombre.jpg</p>
-				</div>
+			</div>
 
-				<input type="file" name="imagenFoto">
+			<label>Imagen</label>
+			<!-- foto actual, si la tiene -->
+			<div th:if="${objProducto.foto != null}">
+				<img th:src="@{'/image/' + ${objProducto.foto}}" width="100">
+				<p th:text="${objProducto.foto}">nombre.jpg</p>
+			</div>
+			<input type="file" name="imagenFoto">
 
-				<input type="submit" value="Guardar cambios">
+			<input type="submit" value="Guardar cambios">
 		</form>
 	</main>
 
