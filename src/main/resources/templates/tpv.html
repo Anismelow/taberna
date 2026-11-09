@@ -13,9 +13,12 @@
 	<main class="tpv-main">
 		<h2>TPV — Punto de venta</h2>
 
+		<!-- ===== MENSAJE (ticket guardado, error...) ===== -->
+		<div class="mensaje-flash" th:if="${f_mensaje}" th:text="${f_mensaje}">Mensaje</div>
+
 		<div class="tpv-layout">
 
-						<!-- ===== COLUMNA IZQUIERDA: el ticket ===== -->
+			<!-- ===== COLUMNA IZQUIERDA: el ticket ===== -->
 			<section class="tpv-ticket">
 				<h3>Ticket</h3>
 
@@ -27,11 +30,33 @@
 				<!-- si tiene líneas, las pintamos -->
 				<div th:unless="${carrito.isEmpty()}">
 
-					<div class="ticket-linea" th:each="linea : ${carrito}">
+					<!-- Formato: 5 – Café con leche (1.90) = 9.50 € ❌ -->
+					<div class="ticket-linea" th:each="linea : ${carrito.values()}">
 						<span class="linea-cant" th:text="${linea.cantidad}">1</span>
+						<span>–</span>
 						<span class="linea-nombre" th:text="${linea.productoFK.nombre}">Producto</span>
+						<span class="linea-precio"
+							  th:text="'(' + ${#numbers.formatDecimal(linea.productoFK.precioConIva, 1, 2)} + ')'">(0.00)</span>
 						<span class="linea-subtotal"
-							  th:text="${#numbers.formatDecimal(linea.productoFK.precioConIva * linea.cantidad, 1, 2)} + ' €'">0.00 €</span>
+							  th:text="'= ' + ${#numbers.formatDecimal(linea.productoFK.precioConIva * linea.cantidad, 1, 2)} + ' €'">= 0.00 €</span>
+						<a class="linea-borrar"
+						   th:href="@{/tpvQuitar(productoId=${linea.productoFK.id})}"
+						   title="Quitar esta línea">❌</a>
+					</div>
+
+					<!-- ===== TOTAL ===== -->
+					<div class="ticket-total">
+						<span>TOTAL</span>
+						<strong th:text="${#numbers.formatDecimal(totalTicket, 1, 2)} + ' €'">0.00 €</strong>
+					</div>
+
+					<!-- ===== BOTONES ===== -->
+					<div class="ticket-botones">
+						<a class="btn btn-cancelar" th:href="@{/tpvCancelar}">Cancelar</a>
+
+						<form method="post" th:action="@{/tpvGuardar}">
+							<button type="submit" class="btn btn-ok">OK</button>
+						</form>
 					</div>
 
 				</div>
@@ -55,7 +80,6 @@
 							<p class="producto-nombre" th:text="${producto.nombre}">Producto</p>
 							<p class="producto-precio" th:text="${producto.precioConIva} + ' €'">0.00 €</p>
 
-							<!-- formulario para añadir al ticket (funcionará en la siguiente capa) -->
 							<form method="post" th:action="@{/tpvAnadir}">
 								<input type="hidden" name="productoId" th:value="${producto.id}">
 								<input type="number" name="cantidad" value="1" min="1">

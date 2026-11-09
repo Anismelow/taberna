@@ -405,3 +405,13 @@ form img + p {
 .linea-subtotal {
 	font-weight: 600;
 }
+/* ===== Mensaje flash ===== */
+.mensaje-flash {
+	margin: 10px 0;
+	padding: 10px 14px;
+	border-radius: 6px;
+	background: #eaf7ee;
+	border: 1px solid #27ae60;
+	color: #1e7e46;
+	font-weight: bold;
+}

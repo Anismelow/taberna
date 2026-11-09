@@ -28,10 +28,10 @@ public class Ticket {
     private Integer id;
 
 
-    @Column (name = "fecha")
+    @Column (name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @Column (name = "hora")
+    @Column (name = "hora", nullable = false)
     private LocalTime hora;
 
     @OneToMany(mappedBy = "ticketFK", cascade = CascadeType.ALL)

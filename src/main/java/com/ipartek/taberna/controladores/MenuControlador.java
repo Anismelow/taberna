@@ -1,7 +1,10 @@
 package com.ipartek.taberna.controladores;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,21 +44,31 @@ public class MenuControlador {
 		model.addAttribute("objProducto", new Producto());
 		return "productos";
 	}
+@GetMapping("/menuTpv")
+public String menuTpv(Model model, HttpSession sesion) {
+    model.addAttribute("listaProductos", productoServ.obtenerTodos());
+    model.addAttribute("listaCategorias", categoriaServ.obtenerTodos());
 
-	@GetMapping("/menuTpv")
-	public String menuTpv(Model model, HttpSession sesion) {
-		model.addAttribute("listaProductos", productoServ.obtenerTodos());
-		model.addAttribute("listaCategorias", categoriaServ.obtenerTodos());
+    Map<Integer, LineaTicket> carrito = (Map<Integer, LineaTicket>) sesion.getAttribute("carrito");
 
-		List<LineaTicket> carrito = (List<LineaTicket>) sesion.getAttribute("carrito");
+    if (carrito == null) {
+        carrito = new LinkedHashMap<>();
+    }
 
-		if (carrito == null) {
-			carrito = new ArrayList<>();
-		}
-		model.addAttribute("carrito", carrito);
+    // ===== calcular el total (variable LOCAL, aquí dentro) =====
+    BigDecimal total = BigDecimal.ZERO;
 
-		return "tpv";
-	}
+    for (LineaTicket linea : carrito.values()) {
+        BigDecimal subtotal = linea.getProductoFK().getPrecioConIva()
+                                  .multiply(BigDecimal.valueOf(linea.getCantidad()));
+        total = total.add(subtotal);
+    }
+
+    model.addAttribute("carrito", carrito);
+    model.addAttribute("totalTicket", total);   // ← ahora sí, al final
+
+    return "tpv";
+}
 
 	@GetMapping("/menuHistorico")
 	public String menuHistorico() {
@@ -66,4 +79,8 @@ public class MenuControlador {
 	public String menuCopia() {
 		return "copia";
 	}
+
+	
+
+
 }
