@@ -1,26 +1,66 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>TPV</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" th:href="@{/styles/styles.css}">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/styles/styles.css}">
 </head>
+
 <body>
 
 	<header th:replace="~{includes/plantilla :: cabecera}"></header>
 	<nav th:replace="~{includes/plantilla :: menu}"></nav>
 
-	<main>
-	<div class="en-obras">
-		<span class="icono">🚚</span>
-		<p>Sección en obras</p>
-	</div>
-</main>
+		<main>
+		<h2>Histórico de ventas</h2>
+
+		<!-- si no hay ventas -->
+		<div th:if="${listaTickets.isEmpty()}" class="en-obras">
+			<p>Todavía no se ha registrado ninguna venta.</p>
+		</div>
+
+		<!-- rejilla de tickets -->
+		<div class="historico-grid" th:unless="${listaTickets.isEmpty()}">
+
+			<article class="ticket-recibo" th:each="ticket : ${listaTickets}">
+
+				<div class="recibo-cabecera">
+					<span class="recibo-titulo">LA TABERNA</span>
+					<span class="recibo-num" th:text="'Ticket #' + ${ticket.id}">Ticket #1</span>
+				</div>
+
+				<div class="recibo-fecha">
+					<span th:text="${ticket.fecha}">2026-11-09</span>
+					<span th:text="${ticket.hora}">13:00</span>
+				</div>
+
+				<div class="recibo-lineas">
+					<div class="recibo-linea" th:each="linea : ${ticket.listaLineas}">
+						<span class="recibo-cant" th:text="${linea.cantidad} + '×'">2×</span>
+						<span class="recibo-prod" th:text="${linea.productoFK.nombre}">Producto</span>
+						<span class="recibo-imp"
+							  th:text="${#numbers.formatDecimal(linea.productoFK.precioConIva * linea.cantidad, 1, 2)} + ' €'">0.00 €</span>
+					</div>
+				</div>
+
+				<div class="recibo-total">
+					<span>TOTAL</span>
+					<span th:text="${#numbers.formatDecimal(ticket.total, 1, 2)} + ' €'">0.00 €</span>
+				</div>
+
+			</article>
+
+		</div>
+	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 
 </body>
+
 </html>

@@ -16,6 +16,7 @@ import com.ipartek.taberna.servicio.AlergenoServicio;
 import com.ipartek.taberna.servicio.CategoriaServicio;
 import com.ipartek.taberna.servicio.IvaServicio;
 import com.ipartek.taberna.servicio.ProductoServicio;
+import com.ipartek.taberna.servicio.TicketServicio;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -34,6 +35,9 @@ public class MenuControlador {
 
 	@Autowired
 	private AlergenoServicio alergenoServ;
+
+	@Autowired 
+	private TicketServicio ticketServ;
 
 	@GetMapping("/menuProductos")
 	public String menuProductos(Model model) {
@@ -71,9 +75,11 @@ public String menuTpv(Model model, HttpSession sesion) {
 }
 
 	@GetMapping("/menuHistorico")
-	public String menuHistorico() {
+	public String menuHistorico(Model model) {
+		model.addAttribute("listaTickets", ticketServ.obtenerTodos());
 		return "historico";
 	}
+	
 
 	@GetMapping("/menuCopia")
 	public String menuCopia() {

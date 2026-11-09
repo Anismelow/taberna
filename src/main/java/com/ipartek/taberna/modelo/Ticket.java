@@ -1,5 +1,6 @@
 package com.ipartek.taberna.modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -17,24 +18,36 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Table (name = "tickets")
+@Table(name = "tickets")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity 
+@Entity
 public class Ticket {
-     
-    @Id 
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
-    @Column (name = "fecha", nullable = false)
+    @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @Column (name = "hora", nullable = false)
+    @Column(name = "hora", nullable = false)
     private LocalTime hora;
 
     @OneToMany(mappedBy = "ticketFK", cascade = CascadeType.ALL)
     private List<LineaTicket> listaLineas;
 
+    public BigDecimal getTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        if (listaLineas == null) {
+            return BigDecimal.ZERO;
+        }
+        for (LineaTicket linea : listaLineas) {
+            BigDecimal subtotal = linea.getProductoFK().getPrecioConIva()
+                    .multiply(BigDecimal.valueOf(linea.getCantidad()));
+            total = total.add(subtotal);
+
+        }
+        return total;
+    }
 }
