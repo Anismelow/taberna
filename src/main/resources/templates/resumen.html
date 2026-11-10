@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Resumen de ventas</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/styles/styles.css}">
+</head>
+<body>
+
+	<header th:replace="~{includes/plantilla :: cabecera}"></header>
+	<nav th:replace="~{includes/plantilla :: menu}"></nav>
+
+	<main>
+		<h2>Resumen de ventas</h2>
+
+				<div class="periodo-selector">
+			<a th:href="@{/resumenVentas(periodo='mes')}"
+			   th:classappend="${periodoActivo == 'mes'} ? 'activo'">Mensual</a>
+			<a th:href="@{/resumenVentas(periodo='trimestre')}"
+			   th:classappend="${periodoActivo == 'trimestre'} ? 'activo'">Trimestral</a>
+			<a th:href="@{/resumenVentas(periodo='semestre')}"
+			   th:classappend="${periodoActivo == 'semestre'} ? 'activo'">Semestral</a>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Periodo</th>
+					<th>Total vendido</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="entrada : ${ventas}">
+					<td th:text="${entrada.key}">2026-11</td>
+					<td class="col-total" th:text="${#numbers.formatDecimal(entrada.value, 1, 2)} + ' €'">0.00 €</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+
+	<footer th:replace="~{includes/plantilla :: pie}"></footer>
+
+</body>
+</html>

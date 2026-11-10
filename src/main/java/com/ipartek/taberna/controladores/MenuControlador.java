@@ -39,6 +39,7 @@ public class MenuControlador {
 	@Autowired 
 	private TicketServicio ticketServ;
 
+
 	@GetMapping("/menuProductos")
 	public String menuProductos(Model model) {
 		model.addAttribute("listaProductos", productoServ.obtenerTodos());
@@ -80,6 +81,7 @@ public String menuTpv(Model model, HttpSession sesion) {
 		return "historico";
 	}
 	
+
 
 	@GetMapping("/menuCopia")
 	public String menuCopia() {

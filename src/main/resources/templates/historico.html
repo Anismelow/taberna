@@ -19,6 +19,14 @@
 
 		<main>
 		<h2>Histórico de ventas</h2>
+			<div class="periodo-selector">
+			<a th:href="@{/resumenVentas(periodo='mes')}"
+			   th:classappend="${periodoActivo == 'mes'} ? 'activo'">Mensual</a>
+			<a th:href="@{/resumenVentas(periodo='trimestre')}"
+			   th:classappend="${periodoActivo == 'trimestre'} ? 'activo'">Trimestral</a>
+			<a th:href="@{/resumenVentas(periodo='semestre')}"
+			   th:classappend="${periodoActivo == 'semestre'} ? 'activo'">Semestral</a>
+		</div>
 
 		<!-- si no hay ventas -->
 		<div th:if="${listaTickets.isEmpty()}" class="en-obras">

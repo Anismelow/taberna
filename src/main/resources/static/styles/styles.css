@@ -257,3 +257,26 @@ footer { text-align: center; padding: 1.5rem; color: var(--tinta-suave); font-si
 	font-size: 1.05rem;
 	color: var(--vino);
 }
+/* ===== Resumen de ventas ===== */
+.periodo-selector {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+.periodo-selector a {
+	padding: 0.5rem 1.2rem;
+	background: var(--papel-2);
+	border: 1px solid var(--borde);
+	border-radius: 6px;
+	color: var(--tinta-suave);
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+.periodo-selector a:hover { border-color: var(--cobre); color: var(--madera); }
+.periodo-selector a.activo {
+	background: var(--madera);
+	color: var(--papel);
+	border-color: var(--madera);
+}
+.col-total { font-weight: 700; color: var(--cobre); font-family: "Zilla Slab", serif; }
