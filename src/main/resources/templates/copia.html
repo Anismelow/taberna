@@ -13,12 +13,24 @@
 	<header th:replace="~{includes/plantilla :: cabecera}"></header>
 	<nav th:replace="~{includes/plantilla :: menu}"></nav>
 
-	<main>
-	<div class="en-obras">
-		<span class="icono">🚚</span>
-		<p>Sección en obras</p>
-	</div>
-</main>
+		<main>
+		<h2>Copia de seguridad</h2>
+
+		<div class="copia-panel">
+			<div class="copia-info">
+				<span class="copia-icono">🗄️</span>
+				<div>
+					<h3>Exportar datos</h3>
+					<p>Descarga una copia completa de la base de datos en formato SQL.
+					   Podrás usarla para restaurar los datos si fuera necesario.</p>
+				</div>
+			</div>
+
+			<form th:action="@{/exportarCopia}" method="get">
+				<button type="submit" class="btn-descargar">⬇ Descargar copia (.sql)</button>
+			</form>
+		</div>
+	</main>
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 

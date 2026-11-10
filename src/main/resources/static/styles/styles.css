@@ -280,3 +280,53 @@ footer { text-align: center; padding: 1.5rem; color: var(--tinta-suave); font-si
 	border-color: var(--madera);
 }
 .col-total { font-weight: 700; color: var(--cobre); font-family: "Zilla Slab", serif; }
+
+/* ===== Copia de seguridad ===== */
+.copia-panel {
+	background: var(--papel-2);
+	border: 1px solid var(--borde);
+	border-radius: 10px;
+	padding: 2rem;
+	max-width: 560px;
+}
+
+.copia-info {
+	display: flex;
+	gap: 1.25rem;
+	align-items: flex-start;
+	margin-bottom: 1.5rem;
+}
+
+.copia-icono {
+	font-size: 2.5rem;
+	line-height: 1;
+}
+
+.copia-info h3 {
+	margin-bottom: 0.4rem;
+	color: var(--madera);
+}
+
+.copia-info p {
+	color: var(--tinta-suave);
+	font-size: 0.9rem;
+	line-height: 1.5;
+}
+
+.copia-panel form {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	box-shadow: none;
+}
+
+.btn-descargar {
+	background: var(--oliva);
+	font-size: 1rem;
+	padding: 0.75rem 1.5rem;
+}
+
+.btn-descargar:hover {
+	background: var(--oliva-osc);
+}
