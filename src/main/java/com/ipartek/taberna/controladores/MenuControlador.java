@@ -1,9 +1,7 @@
 package com.ipartek.taberna.controladores;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,8 @@ import com.ipartek.taberna.servicio.TicketServicio;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MenuControlador {
@@ -39,6 +39,12 @@ public class MenuControlador {
 	@Autowired 
 	private TicketServicio ticketServ;
 
+
+	@GetMapping
+	public String getMethodName() {
+		return "redirect:/menuProductos";
+	}
+	
 
 	@GetMapping("/menuProductos")
 	public String menuProductos(Model model) {

@@ -5,47 +5,36 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ipartek.taberna.servicio.AlergenoServicio;
-import com.ipartek.taberna.servicio.CategoriaServicio;
 import com.ipartek.taberna.servicio.CopiaServicio;
-import com.ipartek.taberna.servicio.IvaServicio;
-import com.ipartek.taberna.modelo.Categoria;
-import com.ipartek.taberna.modelo.LineaTicket;
-import com.ipartek.taberna.modelo.Producto;
-import com.ipartek.taberna.modelo.Ticket;
 
-
-@Controller 
+@Controller
 public class CopiaControlador {
 
-  @Autowired 
+  @Autowired
   private CopiaServicio copiaServ;
 
-    @Autowired
-    private CategoriaServicio categoriaServ;
+  @GetMapping("/exportarCopia")
+  public ResponseEntity<byte[]> exportarCopia() {
 
-    @Autowired
-    private IvaServicio ivaServicio;
+    byte[] zip = copiaServ.generarZip();
+    String nombreArchivo = "copia_taberna.zip";
 
-    @Autowired
-    private AlergenoServicio alergenoServ;
+    return ResponseEntity.ok()
+        .header("Content-Disposition", "attachment; filename=\"" + nombreArchivo + "\"")
+        .contentType(MediaType.parseMediaType("application/zip"))
+        .body(zip);
+  }
 
-
-
-
-
-    @GetMapping("/exportarCopia")
-public ResponseEntity<String> exportarCopia() {
-
-	String sql = copiaServ.exportarTodo();
-  
-	String nombreArchivo = "copia_taberna.sql";
-
-	return ResponseEntity.ok()
-			.header("Content-Disposition", "attachment; filename=\"" + nombreArchivo + "\"")
-			.contentType(MediaType.TEXT_PLAIN)
-			.body(sql);
-}
-
+  @PostMapping("/importarCopia")
+  public String importarCopia(@RequestParam("archivoZip") MultipartFile archivoZip,
+      RedirectAttributes redirect) {
+    copiaServ.importarZip(archivoZip);
+    redirect.addFlashAttribute("f_mensaje", "Copia restaurada correctamente");
+    return "redirect:/menuCopia";
+  }
 }

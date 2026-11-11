@@ -27,10 +27,25 @@
 			</div>
 
 			<form th:action="@{/exportarCopia}" method="get">
-				<button type="submit" class="btn-descargar">⬇ Descargar copia (.sql)</button>
+				<button type="submit" class="btn-descargar">⬇ Descargar copia (.CSV)</button>
 			</form>
 		</div>
+		<div class="copia-panel">
+	<div class="copia-info">
+		<span class="copia-icono">📥</span>
+		<div>
+			<h3>Restaurar datos</h3>
+			<p>Sube un archivo ZIP de copia para restaurar los datos.</p>
+		</div>
+	</div>
+
+	<form th:action="@{/importarCopia}" method="post" enctype="multipart/form-data">
+		<input type="file" name="archivoZip" accept=".zip" required>
+		<button type="submit" class="btn-descargar">Restaurar copia</button>
+	</form>
+</div>
 	</main>
+	
 
 	<footer th:replace="~{includes/plantilla :: pie}"></footer>
 

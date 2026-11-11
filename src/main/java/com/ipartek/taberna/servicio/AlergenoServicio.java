@@ -17,4 +17,5 @@ public interface AlergenoServicio {
 	public void resetearAutoIncrement();
 	public void insertarConId(Alergeno alergeno);
 
+
 }

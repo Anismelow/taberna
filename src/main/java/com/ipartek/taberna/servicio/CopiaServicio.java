@@ -1,5 +1,6 @@
 package com.ipartek.taberna.servicio;
 
+import org.springframework.web.multipart.MultipartFile;
 
 public interface CopiaServicio {
 
@@ -16,5 +17,13 @@ public interface CopiaServicio {
     String exportarTickets();
 
     String exportarLineasTickets();
+
+    String exportarProductosAlergenos();
+
+    byte[] generarZip();
+
+    void importarZip(MultipartFile archivoZip);
+    
+
 
 }
