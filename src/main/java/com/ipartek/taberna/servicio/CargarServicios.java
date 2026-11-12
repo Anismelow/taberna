@@ -37,7 +37,7 @@ public class CargarServicios {
 		cargarProductos();
 	}
 
-	// 1. IVA
+
 	private void cargarIvas() {
 		if (ivaServ.contarRegistros() != null && ivaServ.contarRegistros() == 0) {
 			ivaServ.resetearAutoIncrement();
@@ -47,7 +47,7 @@ public class CargarServicios {
 		}
 	}
 
-	// 2. Categorías
+
 	private void cargarCategorias() {
 		if (categoriaServ.contarRegistros() != null && categoriaServ.contarRegistros() == 0) {
 			categoriaServ.resetearAutoIncrement();
@@ -60,7 +60,7 @@ public class CargarServicios {
 		}
 	}
 
-	// 3. Alérgenos
+
 	private void cargarAlergenos() {
 		if (alergenoServ.contarRegistros() != null && alergenoServ.contarRegistros() == 0) {
 			alergenoServ.resetearAutoIncrement();
@@ -72,7 +72,7 @@ public class CargarServicios {
 		}
 	}
 
-	// 4. Productos (dependen de categoría e IVA, por eso van los últimos)
+	// Los productos van los últimos porque dependen de categoría e IVA (claves foráneas)
 	private void cargarProductos() {
 		if (productoServ.contarRegistros() != null && productoServ.contarRegistros() == 0) {
 

@@ -85,7 +85,7 @@ public class CopiaServicioImpl implements CopiaServicio {
     @Override
     public String exportarProductos() {
         StringBuilder csv = new StringBuilder();
-        csv.append("id,nombre,precio,categoriaFK,ivaFK,foto\n"); // cabecera
+        csv.append("id,nombre,precio,categoriaFK,ivaFK,foto\n");
 
         for (Producto prod : productoServ.obtenerTodos()) {
             csv.append(prod.getId()).append(",")
@@ -225,6 +225,8 @@ public class CopiaServicioImpl implements CopiaServicio {
 
         return baos.toByteArray();
     }
+
+
 
     private String leerContenido(ZipInputStream zip) throws Exception {
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();

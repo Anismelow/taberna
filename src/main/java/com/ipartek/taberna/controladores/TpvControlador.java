@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 public class TpvControlador {
 
     @Autowired
-    ProductoServicio productoServ;
+    private ProductoServicio productoServ;
 
     @Autowired
     private TicketServicio ticketServ;
@@ -36,15 +35,13 @@ public class TpvControlador {
             @RequestParam Integer productoId,
             @RequestParam Integer cantidad) {
 
-        // 1. sacar el carrito de la sesión
         Map<Integer, LineaTicket> carrito = (Map<Integer, LineaTicket>) sesion.getAttribute("carrito");
 
-        // 2. si no existe todavía, crearlo
         if (carrito == null) {
             carrito = new LinkedHashMap<>();
         }
 
-        // 3. agrupar: si ya está, sumo; si no, creo la línea
+        // Si el producto ya está en el carrito, se suma la cantidad en lugar de duplicar la línea
         if (carrito.containsKey(productoId)) {
             LineaTicket existente = carrito.get(productoId);
             existente.setCantidad(existente.getCantidad() + cantidad);
@@ -56,17 +53,12 @@ public class TpvControlador {
             carrito.put(productoId, linea);
         }
 
-        // 4. guardar el carrito en la sesión
         sesion.setAttribute("carrito", carrito);
-
-        // 5. redirigir al TPV
         return "redirect:/menuTpv";
     }
 
     @GetMapping("/tpvQuitar")
-    public String tpvQuitar(
-            @RequestParam Integer productoId,
-            HttpSession sesion) {
+    public String tpvQuitar(@RequestParam Integer productoId, HttpSession sesion) {
         Map<Integer, LineaTicket> carrito = (Map<Integer, LineaTicket>) sesion.getAttribute("carrito");
 
         if (carrito != null) {
@@ -74,38 +66,31 @@ public class TpvControlador {
             sesion.setAttribute("carrito", carrito);
         }
         return "redirect:/menuTpv";
-
     }
 
     @PostMapping("/tpvGuardar")
     public String tpvGuardar(HttpSession sesion, RedirectAttributes redirect) {
 
-        // 1. sacar el carrito de la sesión (ya sabes hacerlo)
         Map<Integer, LineaTicket> carrito = (Map<Integer, LineaTicket>) sesion.getAttribute("carrito");
 
-        // 2. si no hay carrito o está vacío, no se guarda nada
         if (carrito == null || carrito.isEmpty()) {
             redirect.addFlashAttribute("f_mensaje", "El ticket está vacío");
             return "redirect:/menuTpv";
         }
 
-        // 3. crear el ticket con la fecha y la hora de AHORA
         Ticket ticket = new Ticket();
         ticket.setFecha(LocalDate.now());
         ticket.setHora(LocalTime.now());
 
-        // 4. cada línea tiene que saber a qué ticket pertenece (¡la trampa!)
+        // Cada línea debe apuntar a su ticket antes de guardar, o la FK quedaría a null
         for (LineaTicket linea : carrito.values()) {
             linea.setTicketFK(ticket);
         }
 
-        // 5. pasar las líneas del mapa a una lista y dárselas al ticket
+        // El cascade (CascadeType.ALL) persiste las líneas junto con el ticket
         ticket.setListaLineas(new ArrayList<>(carrito.values()));
-
-        // 6. guardar el ticket (el cascade guarda las líneas solas)
         Ticket resultado = ticketServ.insertar(ticket);
 
-        // 7. si se guardó bien: vaciar el carrito y avisar
         if (resultado != null && resultado.getId() != null) {
             sesion.removeAttribute("carrito");
             redirect.addFlashAttribute("f_mensaje", "Ticket nº " + resultado.getId() + " guardado correctamente");

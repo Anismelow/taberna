@@ -42,18 +42,15 @@ public class ProductoControlador {
 			@ModelAttribute Producto objProducto) {
 		try {
 
-			// 1. Si viene una foto, preparo su nombre y se lo pongo al producto
 			if (archivoFoto != null && !archivoFoto.isEmpty()) {
 				String nombreOriginal = archivoFoto.getOriginalFilename();
 				String nombreFinal = System.currentTimeMillis() + "_" + nombreOriginal;
 				objProducto.setFoto(nombreFinal);
-				// guardo el archivo en la carpeta static/imagenes/productos/
 				Path carpeta = Paths.get("uploads/image");
 				Files.createDirectories(carpeta);
 				Files.write(carpeta.resolve(nombreFinal), archivoFoto.getBytes());
 			}
 
-			// 2. Inserto el producto (ya con la foto puesta, si la había)
 			Producto resultado = productoServ.insertar(objProducto);
 			if (resultado != null && resultado.getId() != null) {
 				redirect.addFlashAttribute("f_mensaje", "Producto insertado correctamente");

@@ -66,7 +66,6 @@ public String menuTpv(Model model, HttpSession sesion) {
         carrito = new LinkedHashMap<>();
     }
 
-    // ===== calcular el total (variable LOCAL, aquí dentro) =====
     BigDecimal total = BigDecimal.ZERO;
 
     for (LineaTicket linea : carrito.values()) {
@@ -76,7 +75,7 @@ public String menuTpv(Model model, HttpSession sesion) {
     }
 
     model.addAttribute("carrito", carrito);
-    model.addAttribute("totalTicket", total);   // ← ahora sí, al final
+    model.addAttribute("totalTicket", total);  
 
     return "tpv";
 }
