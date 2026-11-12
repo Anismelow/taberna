@@ -101,11 +101,11 @@ public class CopiaServicioImpl implements CopiaServicio {
     @Override
     public String exportarProductosAlergenos() {
         StringBuilder csv = new StringBuilder();
-        csv.append("productoFK,alergenoFK");
+        csv.append("productoFK,alergenoFK\n");
         for (Producto prod : productoServ.obtenerTodos()) {
-            csv.append("productoFK").append(",").append("\n");
             for (Alergeno ale : prod.getListaAlergenos()) {
-                csv.append("alergenoFK").append(",").append("\n");
+                csv.append(prod.getId()).append(",")
+                        .append(ale.getId()).append("\n");
             }
         }
         return csv.toString();
@@ -118,22 +118,20 @@ public class CopiaServicioImpl implements CopiaServicio {
         for (Ticket ticket : ticketServ.obtenerTodos()) {
             csv.append(ticket.getId()).append(",")
                     .append(ticket.getFecha()).append(",")
-                    .append(ticket.getHora()).append(",");
+                    .append(ticket.getHora()).append("\n");
         }
-
         return csv.toString();
     }
 
     @Override
     public String exportarLineasTickets() {
         StringBuilder csv = new StringBuilder();
+        csv.append("id,productoFK,cantidad,ticketFK\n");
         for (LineaTicket linea : lineaTicketRepo.findAll()) {
-            csv.append("id,productoFK,cantidad,ticketFK\n");
-            csv.append(linea.getId());
-            csv.append(", ").append(linea.getProductoFK().getId());
-            csv.append(", ").append(linea.getCantidad());
-            csv.append(", ").append(linea.getTicketFK().getId());
-            csv.append("\n");
+            csv.append(linea.getId()).append(",")
+                    .append(linea.getProductoFK().getId()).append(",")
+                    .append(linea.getCantidad()).append(",")
+                    .append(linea.getTicketFK().getId()).append("\n");
         }
         return csv.toString();
     }
@@ -152,43 +150,43 @@ public class CopiaServicioImpl implements CopiaServicio {
     }
 
     private void importarCategorias(String contenido) {
-	String[] lineas = contenido.split("\n");  
-	for (int i = 1; i < lineas.length; i++) {  
-		String[] partes = lineas[i].split(","); 
-		if (partes.length < 2) continue;        
-		Categoria cat = new Categoria();
-		cat.setId(Integer.parseInt(partes[0].trim()));   
-		cat.setNombre(partes[1].trim());
-		categoriaServ.insertarConId(cat);           
-	}
-}
+        String[] lineas = contenido.split("\n");
+        for (int i = 1; i < lineas.length; i++) {
+            String[] partes = lineas[i].split(",");
+            if (partes.length < 2)
+                continue;
+            Categoria cat = new Categoria();
+            cat.setId(Integer.parseInt(partes[0].trim()));
+            cat.setNombre(partes[1].trim());
+            categoriaServ.insertarConId(cat);
+        }
+    }
 
-  private void importarIvas(String contenido) {
-	String[] lineas = contenido.split("\n");  
-	for (int i = 1; i < lineas.length; i++) {  
-		String[] partes = lineas[i].split(","); 
-		if (partes.length < 2) continue;        
-		Iva iva = new Iva();
-		iva.setId(Integer.parseInt(partes[0].trim()));   
-		iva.setPorcentaje(Integer.parseInt(partes[1].trim()));
-		ivaServ.insertarConId(iva);           
-	}
-}
+    private void importarIvas(String contenido) {
+        String[] lineas = contenido.split("\n");
+        for (int i = 1; i < lineas.length; i++) {
+            String[] partes = lineas[i].split(",");
+            if (partes.length < 2)
+                continue;
+            Iva iva = new Iva();
+            iva.setId(Integer.parseInt(partes[0].trim()));
+            iva.setPorcentaje(Integer.parseInt(partes[1].trim()));
+            ivaServ.insertarConId(iva);
+        }
+    }
 
-  private void importarAlergenos(String contenido) {
-	String[] lineas = contenido.split("\n");   
-	for (int i = 1; i < lineas.length; i++) {  
-		String[] partes = lineas[i].split(",");
-		if (partes.length < 2) continue;        
-		Alergeno alergeno = new Alergeno();
-		alergeno.setId(Integer.parseInt(partes[0].trim())); 
-		alergeno.setNombre(partes[1].trim());
-		alergenoServ.insertarConId(alergeno);               
-	}
-}
-
-
-
+    private void importarAlergenos(String contenido) {
+        String[] lineas = contenido.split("\n");
+        for (int i = 1; i < lineas.length; i++) {
+            String[] partes = lineas[i].split(",");
+            if (partes.length < 2)
+                continue;
+            Alergeno alergeno = new Alergeno();
+            alergeno.setId(Integer.parseInt(partes[0].trim()));
+            alergeno.setNombre(partes[1].trim());
+            alergenoServ.insertarConId(alergeno);
+        }
+    }
 
     private void anadirAlZip(ZipOutputStream zip, String nombre, String contenido) throws Exception {
         zip.putNextEntry(new ZipEntry(nombre));
@@ -226,37 +224,33 @@ public class CopiaServicioImpl implements CopiaServicio {
         return baos.toByteArray();
     }
 
-
-
     private String leerContenido(ZipInputStream zip) throws Exception {
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	byte[] buffer = new byte[1024];
-	int leidos;
-	while ((leidos = zip.read(buffer)) > 0) {
-		baos.write(buffer, 0, leidos);
-	}
-	return baos.toString("UTF-8");
-}
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int leidos;
+        while ((leidos = zip.read(buffer)) > 0) {
+            baos.write(buffer, 0, leidos);
+        }
+        return baos.toString("UTF-8");
+    }
 
-  public void importarZip(MultipartFile archivoZip) {
-	try (ZipInputStream zip = new ZipInputStream(archivoZip.getInputStream())) {
-		ZipEntry entrada;
-		while ((entrada = zip.getNextEntry()) != null) {
-			String nombre = entrada.getName();
+    public void importarZip(MultipartFile archivoZip) {
+        try (ZipInputStream zip = new ZipInputStream(archivoZip.getInputStream())) {
+            ZipEntry entrada;
+            while ((entrada = zip.getNextEntry()) != null) {
+                String nombre = entrada.getName();
 
-			if (nombre.equals("categorias.csv")) {
-				importarCategorias(leerContenido(zip));
-			}
-			else if (nombre.equals("ivas.csv")){
+                if (nombre.equals("categorias.csv")) {
+                    importarCategorias(leerContenido(zip));
+                } else if (nombre.equals("ivas.csv")) {
                     importarIvas(leerContenido(zip));
+                } else if (nombre.equals("alergenos.csv")) {
+                    importarAlergenos(leerContenido(zip));
+                }
             }
-            else if (nombre.equals("alergenos.csv")) {
-                importarAlergenos(leerContenido(zip));
-}
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
